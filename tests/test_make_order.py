@@ -5,9 +5,9 @@ import allure
 from data.data_user import DataUrl
 
 
-@allure.title('Тестирование создания заказа с различными тестовыми данными')
 class TestOrder:
 
+    @allure.title('Тестирование создания заказа с различными тестовыми данными')
     @allure.description('Создание заказа с проверкой параметра color')
     @pytest.mark.parametrize('firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color',
                              [
@@ -18,8 +18,7 @@ class TestOrder:
                                  ])
     def test_make_order(self, firstName, lastName, address, metroStation, phone, rentTime, deliveryDate, comment, color):
 
-        response = requests.post(f"{DataUrl.API_URL}/api/v1/orders")
+        response = requests.post(DataUrl.API_URL + DataUrl.ORDER_LIST_URL)
         assert response.status_code == 201
         assert "track" in response.text
-        print(response.status_code)
         print(response.json())
